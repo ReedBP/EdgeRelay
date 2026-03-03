@@ -202,3 +202,5 @@ CI（Continuous Integration，持续集成）你可以理解成：
 - Phase 3：OPC UA 接入（先 stub，后 open62541）
 
 详见 `docs/plan.md`。
+
+如果你想看 Phase 0 的完整总结（做了什么 + 怎么实现），见 `docs/phase0-summary.md`。
