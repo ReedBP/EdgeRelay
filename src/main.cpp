@@ -1,17 +1,10 @@
+#include "pipeline.h"
+
 #include <iostream>
-#include <string_view>
-
-namespace edgerelay {
-
-// Keep startup output intentionally simple in Phase 0 so interviewers can verify
-// the toolchain quickly before we add MQTT/SQLite/OPC UA dependencies.
-void print_boot_banner(std::string_view mode) {
-    std::cout << "[EdgeRelay] boot mode=" << mode << '\n';
-}
-
-} // namespace edgerelay
 
 int main() {
-    edgerelay::print_boot_banner("phase0-skeleton");
+    std::cout << "[EdgeRelay] phase1-pr1 starting pipeline\n";
+    edgerelay::run_pipeline(5);
+    std::cout << "[EdgeRelay] phase1-pr1 finished\n";
     return 0;
 }

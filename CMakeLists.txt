@@ -10,9 +10,15 @@ option(EDGERELAY_WARNINGS_AS_ERRORS "Treat warnings as errors" OFF)
 
 add_executable(edge_relay
     src/main.cpp
+    src/app_message.cpp
+    src/stub_source.cpp
+    src/console_sink.cpp
+    src/pipeline.cpp
 )
 
 target_compile_features(edge_relay PRIVATE cxx_std_17)
+
+target_include_directories(edge_relay PRIVATE src)
 
 if(MSVC)
     target_compile_options(edge_relay PRIVATE /W4 /permissive-)

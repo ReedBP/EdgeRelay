@@ -24,17 +24,16 @@
 
 ---
 
-## Phase 1：MQTT 通路（先把消息发出去）
+## Phase 1：MQTT 通路（进行中：PR1 已打通主干）
 
 ### 目标
 1. 程序每隔几秒发一条测试消息到 MQTT。
 2. 你在终端里用 `mosquitto_sub` 能看到消息。
 
 ### 预计改动文件
-- `src/mqtt/*`（MQTT 客户端封装）
-- `src/app/*`（主流程）
-- `configs/edgerelay.toml`（broker 地址、主题、发送间隔）
-- `README.md`（Docker 启动 mosquitto + 验证步骤）
+- PR1（已完成）：`src/app_message.*`、`src/stub_source.*`、`src/message_sink.h`、`src/console_sink.*`、`src/pipeline.*`（先打通 source->pipeline->sink）
+- PR2：`src/mqtt/*`（接入 Paho MQTT C++ 实际发布）
+- PR3：`configs/edgerelay.toml` + `README.md`（Docker mosquitto + `mosquitto_sub` 验证）
 
 ### 你需要掌握的点
 - QoS：消息“尽量到达”的等级。

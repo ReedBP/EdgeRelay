@@ -7,7 +7,7 @@
 - MQTT broker 负责“收件分发”
 - 如果网络断了，先放到 SQLite（本地小仓库），恢复后再补发
 
-> 当前状态：**Phase 0 / PR 3（CI 自动编译检查）已完成**
+> 当前状态：**Phase 1 / PR 1（先打通 source -> pipeline -> sink）**
 
 ---
 
@@ -204,3 +204,30 @@ CI（Continuous Integration，持续集成）你可以理解成：
 详见 `docs/plan.md`。
 
 如果你想看 Phase 0 的完整总结（做了什么 + 怎么实现），见 `docs/phase0-summary.md`。
+
+
+## Phase 1 / PR1 新增文件用途（先不接 MQTT，先打通主干）
+
+- `src/app_message.h/.cpp`：统一消息结构 `SensorMessage`，并提供 `to_json()` 序列化。
+- `src/stub_source.h/.cpp`：模拟数据源，每秒生成一条递增数据。
+- `src/message_sink.h`：发送端接口（后续可替换成 MQTT sink）。
+- `src/console_sink.h/.cpp`：当前临时实现，先把消息打印到控制台。
+- `src/pipeline.h/.cpp`：把“取数据 -> 发布数据”串起来的主流程。
+
+### 为什么这样拆文件
+- 先把架构边界拆出来（source / pipeline / sink），后续替换 MQTT 时不需要大改主流程。
+- 先做可运行、可观察的版本，降低复杂度，符合“小步提交”。
+
+### 现在你可以自己上手的练习
+1. 改 `src/stub_source.cpp` 的 `value` 计算公式，重新运行看输出变化。
+2. 改 `run_pipeline(5)` 为 `run_pipeline(10)`，观察消息数量变化。
+3. 改 `topic=edge/stub` 为其他主题名，感受“消息路由”概念。
+
+### 本地运行（Windows PowerShell）
+```powershell
+cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+cmake --build build --config Debug
+.\build\Debug\edge_relay.exe
+```
+
+预期会连续打印 5 条 JSON 消息（每秒一条）。
