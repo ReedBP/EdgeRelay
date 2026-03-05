@@ -1,6 +1,5 @@
 #include "pipeline.h"
 
-#include "console_sink.h"
 #include "stub_source.h"
 
 #include <chrono>
@@ -8,9 +7,8 @@
 
 namespace edgerelay {
 
-void run_pipeline(const std::size_t count) {
+void run_pipeline(const std::size_t count, MessageSink& sink) {
     StubSource source;
-    ConsoleSink sink;
 
     for (std::size_t i = 0; i < count; ++i) {
         const auto message = source.next();

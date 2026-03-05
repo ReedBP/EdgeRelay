@@ -7,7 +7,7 @@
 - MQTT broker 负责“收件分发”
 - 如果网络断了，先放到 SQLite（本地小仓库），恢复后再补发
 
-> 当前状态：**Phase 1 / PR 1（先打通 source -> pipeline -> sink）**
+> 当前状态：**Phase 1 / PR 2（运行参数 + 可切换 Console/MQTT sink）**
 
 ---
 
@@ -53,7 +53,7 @@ cmake --build build --config Debug
 ### Step 5：看结果
 预期输出：
 ```text
-[EdgeRelay] boot mode=phase0-skeleton
+[EdgeRelay] sink=console
 ```
 看到这行 = 你本地环境已经跑通。
 
@@ -102,7 +102,7 @@ cmake --build build --config Debug
 
 预期输出：
 ```text
-[EdgeRelay] boot mode=phase0-skeleton
+[EdgeRelay] sink=console
 ```
 
 如果你看到了这行，就表示你已经“在 VS Code 里跑起来了”。
@@ -231,3 +231,9 @@ cmake --build build --config Debug
 ```
 
 预期会连续打印 5 条 JSON 消息（每秒一条）。
+
+
+## Phase 1 / PR2 深度讲解（建议先读）
+- 你问的两条测试命令“是什么、为什么这么写、各自验证了什么”，我整理在：`docs/phase1-pr2-guide.md`。
+- 新增模块“怎么做、为什么这么做、解决了什么问题、你能学到什么”，也都在这份文档里。
+- 并且附带了循序渐进的练习清单，帮助你真正自己上手。

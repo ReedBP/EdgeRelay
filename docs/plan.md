@@ -24,7 +24,7 @@
 
 ---
 
-## Phase 1：MQTT 通路（进行中：PR1 已打通主干）
+## Phase 1：MQTT 通路（进行中：PR2 已完成运行参数与 MQTT sink）
 
 ### 目标
 1. 程序每隔几秒发一条测试消息到 MQTT。
@@ -32,7 +32,7 @@
 
 ### 预计改动文件
 - PR1（已完成）：`src/app_message.*`、`src/stub_source.*`、`src/message_sink.h`、`src/console_sink.*`、`src/pipeline.*`（先打通 source->pipeline->sink）
-- PR2：`src/mqtt/*`（接入 Paho MQTT C++ 实际发布）
+- PR2（已完成）：`src/runtime_config.*`、`src/mqtt_sink.*`、`src/main.cpp`、`src/pipeline.*`（支持参数切换 sink，MQTT 通过编译开关启用）
 - PR3：`configs/edgerelay.toml` + `README.md`（Docker mosquitto + `mosquitto_sub` 验证）
 
 ### 你需要掌握的点
