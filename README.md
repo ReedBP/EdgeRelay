@@ -24,7 +24,7 @@
 ## 超详细教程（Windows）
 
 ### Step 0：先装好工具
-1. 安装 **Visual Studio 2022**，勾选工作负载：`使用 C++ 的桌面开发`。
+1. 安装 **Visual Studio 2026**，勾选工作负载：`使用 C++ 的桌面开发`。
 2. 安装 **Git**。
 3. 安装 **CMake**（建议 3.20+）。
 4. （可选）安装 **vcpkg**，后续 Phase 1/2/3 要用。
@@ -37,7 +37,7 @@ cd EdgeRelay
 
 ### Step 2：生成工程文件
 ```powershell
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+cmake -S . -B build -G "Visual Studio 18 2026" -A x64
 ```
 
 ### Step 3：编译
@@ -77,7 +77,7 @@ cmake --build build --config Debug
 ### Step C：让 VS Code 选择编译器（MSVC）
 1. 按 `Ctrl + Shift + P` 打开命令面板。
 2. 输入并选择：`CMake: Select a Kit`。
-3. 选带有 `Visual Studio 2022 Release - amd64`（或类似名字）的项。
+3. 选带有 `Visual Studio 2026 Release - amd64`（或类似名字）的项。
 
 ### Step D：配置项目（Configure）
 1. 按 `Ctrl + Shift + P`。
@@ -108,7 +108,7 @@ cmake --build build --config Debug
 如果你看到了这行，就表示你已经“在 VS Code 里跑起来了”。
 
 ### Step G：如果报错，按这个顺序排查
-1. 确认 Visual Studio 2022 装了 `使用 C++ 的桌面开发`。
+1. 确认 Visual Studio 2026 装了 `使用 C++ 的桌面开发`。
 2. 关闭 VS Code，重新打开项目。
 3. 重新执行：`CMake: Select a Kit` -> `CMake: Configure` -> `CMake: Build`。
 4. 还不行就删除 `build` 文件夹后再试一次。
@@ -120,7 +120,7 @@ cmake --build build --config Debug
 
 ```powershell
 # 假设你的 vcpkg 在 C:\dev\vcpkg
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64 `
+cmake -S . -B build -G "Visual Studio 18 2026" -A x64 `
   -DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake
 cmake --build build --config Debug
 ```
@@ -149,7 +149,7 @@ CI（Continuous Integration，持续集成）你可以理解成：
 ### 3) 这次 CI 具体做了什么
 我们加了 `.github/workflows/windows-msvc.yml`，内容很简单：
 1. 使用 `windows-latest` 机器
-2. 用 VS2022 生成器执行 `cmake -S . -B build`
+2. 用 VS2026 生成器执行 `cmake -S . -B build`
 3. 执行 `cmake --build build --config Debug`
 
 ### 4) 解决了什么问题
@@ -225,7 +225,7 @@ CI（Continuous Integration，持续集成）你可以理解成：
 
 ### 本地运行（Windows PowerShell）
 ```powershell
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+cmake -S . -B build -G "Visual Studio 18 2026" -A x64
 cmake --build build --config Debug
 .\build\Debug\edge_relay.exe
 ```
