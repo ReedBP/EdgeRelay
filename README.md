@@ -283,3 +283,4 @@ cmake --build build --config Debug
 
 ## Phase 1 / PR3 深度讲解（配置文件 + mosquitto）
 - 本步的完整解释、设计原因、练习清单：`docs/phase1-pr3-guide.md`。
+- 如果你想逐条理解这组 Windows MQTT 验证命令（每个参数含义 + 常见报错）：`docs/windows-mqtt-verify-explained.md`。
