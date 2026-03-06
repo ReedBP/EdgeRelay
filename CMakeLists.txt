@@ -16,6 +16,7 @@ add_executable(edge_relay
     src/console_sink.cpp
     src/mqtt_sink.cpp
     src/runtime_config.cpp
+    src/config_file.cpp
     src/pipeline.cpp
 )
 

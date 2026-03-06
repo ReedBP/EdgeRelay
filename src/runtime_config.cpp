@@ -1,5 +1,7 @@
 #include "runtime_config.h"
 
+#include "config_file.h"
+
 #include <stdexcept>
 #include <string>
 
@@ -21,10 +23,21 @@ SinkMode parse_sink_mode(const std::string& value) {
 RuntimeConfig parse_runtime_config(const int argc, char* argv[]) {
     RuntimeConfig config{};
 
+    // First pass: only read --config so file values become runtime defaults.
+    for (int i = 1; i < argc; ++i) {
+        const std::string arg{argv[i]};
+        if (arg == "--config" && i + 1 < argc) {
+            load_config_file(argv[++i], config);
+        }
+    }
+
+    // Second pass: explicit CLI arguments override config file values.
     for (int i = 1; i < argc; ++i) {
         const std::string arg{argv[i]};
 
-        if (arg == "--sink" && i + 1 < argc) {
+        if (arg == "--config" && i + 1 < argc) {
+            ++i;
+        } else if (arg == "--sink" && i + 1 < argc) {
             config.sink_mode = parse_sink_mode(argv[++i]);
         } else if (arg == "--count" && i + 1 < argc) {
             config.count = static_cast<std::size_t>(std::stoull(argv[++i]));

@@ -7,7 +7,7 @@
 - MQTT broker 负责“收件分发”
 - 如果网络断了，先放到 SQLite（本地小仓库），恢复后再补发
 
-> 当前状态：**Phase 1 / PR 2（运行参数 + 可切换 Console/MQTT sink）**
+> 当前状态：**Phase 1 / PR 3（配置文件 + mosquitto 验证指引）**
 
 ---
 
@@ -237,3 +237,42 @@ cmake --build build --config Debug
 - 你问的两条测试命令“是什么、为什么这么写、各自验证了什么”，我整理在：`docs/phase1-pr2-guide.md`。
 - 新增模块“怎么做、为什么这么做、解决了什么问题、你能学到什么”，也都在这份文档里。
 - 并且附带了循序渐进的练习清单，帮助你真正自己上手。
+
+
+## Phase 1 / PR3：配置文件 + mosquitto 验证（Windows）
+
+### 这一步新增了什么
+- 新增 `configs/edgerelay.toml`：把运行参数写进文件，避免每次输入一长串命令。
+- 新增 `src/config_file.h/.cpp`：读取配置文件并填充 `RuntimeConfig`。
+- 更新 `src/runtime_config.cpp`：支持 `--config <path>`，并约定“命令行参数优先于配置文件”。
+
+### 为什么这么做
+- 真实项目里，环境参数（broker 地址、topic）经常变化，写在代码里不利于协作。
+- 你可以先用配置文件跑通，再按需用 CLI 覆盖单个字段，效率最高。
+
+### Windows 验证流程（Docker + mosquitto_sub）
+1. 启动 broker：
+```powershell
+docker run -d --name er-mosquitto -p 1883:1883 eclipse-mosquitto:2
+```
+2. 在新终端订阅消息：
+```powershell
+docker exec -it er-mosquitto mosquitto_sub -h localhost -p 1883 -t edge/stub -v
+```
+3. 启用 MQTT 构建并运行：
+```powershell
+cmake -S . -B build -G "Visual Studio 18 2026" -A x64 `
+  -DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake `
+  -DEDGERELAY_ENABLE_MQTT=ON
+cmake --build build --config Debug
+.\build\Debug\edge_relay.exe --config configs/edgerelay.toml --sink mqtt --count 3
+```
+
+### 你马上可以练习
+1. 先把 `configs/edgerelay.toml` 里的 `sink` 设为 `console`，用 `--config` 运行。
+2. 然后命令行加 `--sink mqtt` 覆盖配置，看“CLI 优先级”是否生效。
+3. 改 `topic`，在 `mosquitto_sub` 侧观察是否收到新主题消息。
+
+
+## Phase 1 / PR3 深度讲解（配置文件 + mosquitto）
+- 本步的完整解释、设计原因、练习清单：`docs/phase1-pr3-guide.md`。

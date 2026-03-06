@@ -24,7 +24,7 @@
 
 ---
 
-## Phase 1：MQTT 通路（进行中：PR2 已完成运行参数与 MQTT sink）
+## Phase 1：MQTT 通路（进行中：PR3 已完成配置文件与 mosquitto 验证指引）
 
 ### 目标
 1. 程序每隔几秒发一条测试消息到 MQTT。
@@ -33,7 +33,7 @@
 ### 预计改动文件
 - PR1（已完成）：`src/app_message.*`、`src/stub_source.*`、`src/message_sink.h`、`src/console_sink.*`、`src/pipeline.*`（先打通 source->pipeline->sink）
 - PR2（已完成）：`src/runtime_config.*`、`src/mqtt_sink.*`、`src/main.cpp`、`src/pipeline.*`（支持参数切换 sink，MQTT 通过编译开关启用）
-- PR3：`configs/edgerelay.toml` + `README.md`（Docker mosquitto + `mosquitto_sub` 验证）
+- PR3（已完成）：`configs/edgerelay.toml`、`src/config_file.*`、`src/runtime_config.cpp`、`README.md`（配置文件驱动 + Docker mosquitto 验证流程）
 
 ### 你需要掌握的点
 - QoS：消息“尽量到达”的等级。
