@@ -1,0 +1,21 @@
+name: Windows MSVC Build
+
+on:
+  push:
+    branches: ["main", "work"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure (CMake + MSVC)
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build (Debug)
+        run: cmake --build build --config Debug
