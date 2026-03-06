@@ -92,7 +92,7 @@ Phase 0 的核心目标是：
 - 运行环境：`windows-latest`
 - 执行步骤：
   1. checkout
-  2. CMake configure（VS2026, x64）
+  2. CMake configure（VS2022, x64）
   3. CMake build（Debug）
 
 ### 为什么这样做
