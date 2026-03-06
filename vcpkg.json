@@ -1,0 +1,11 @@
+{
+  "name": "edge-relay",
+  "version-string": "0.1.0",
+  "description": "Interview project gateway forwarding stub/OPC UA data to MQTT with SQLite offline buffering.",
+  "dependencies": [
+    "paho-mqttpp3",
+    "tomlplusplus",
+    "spdlog",
+    "sqlite3"
+  ]
+}

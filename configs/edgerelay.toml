@@ -1,0 +1,11 @@
+# EdgeRelay Phase 1 / PR3 sample configuration
+# You can keep sink="console" while learning, then switch to "mqtt".
+
+[app]
+sink = "console"
+count = 5
+
+[mqtt]
+server_uri = "tcp://localhost:1883"
+client_id = "edge-relay-dev"
+topic = "edge/stub"
